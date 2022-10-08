@@ -1,0 +1,201 @@
+### Test status code 200 on GET api/products/ - Getting all products
+GET http://localhost:8080/api/products
+
+> {%
+client.test("Request status is 200", function() {
+  client.assert(response.status === 200, `The Status Code expected is 200 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Number of products is different from 0", () => {
+  client.assert(response.body.products.length !== 0, `Products found: ${response.body.products.length}`);
+});
+%}
+
+### Test status code 200 on GET api/products/ - Getting an specific product by id
+GET http://localhost:8080/api/products/1
+
+> {%
+client.test("Request status is 200", function() {
+  client.assert(response.status === 200, `The Status Code expected is 200 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("First element is Iphone 10", () => {
+  client.assert(response.body.product.title === 'Iphone 10', `The title is not Iphone 10, but ${response.body.product.title}`);
+  client.assert(response.body.product.price === 1000.1, `The price for Iphone 10 found is of ${response.body.product.price}`);
+  client.assert(response.body.product.thumbnail === 'www.example.com', `The URL found was of ${response.body.product.thumbnail}`);
+});
+%}
+
+### Test status code 400 on GET api/products/ - Using something different from a number on the url
+GET http://localhost:8080/api/products/asd
+
+> {%
+client.test("Request status is 400", function() {
+  client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The ID is not a number, bad request.", "The error message is not the expected.");
+});
+%}
+
+### Test status code 201 on POST api/products/ - Creating new product
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "title": "Asus 2080",
+  "price": 900,
+  "thumbnail": "www.example.com"
+}
+
+> {%
+client.test("Request status is 201", function() {
+  client.assert(response.status === 201, `The Status Code expected is 201 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking the product was created", () => {
+  client.assert(response.body.product.title === 'Asus 2080', `The title is not Asus 2080, but ${response.body.product.title}`);
+  client.assert(response.body.product.price === 900, `The price for Asus 2080 found is of ${response.body.product.price}`);
+  client.assert(response.body.product.thumbnail === 'www.example.com', `The URL found was of ${response.body.product.thumbnail}`);
+});
+%}
+
+### Test status code 400 on POST api/products/ - Sending wrong body
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "title": "Asus 2080",
+  "price": 900
+}
+
+> {%
+client.test("Request status is 400", function() {
+  client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The information sent is not correct, please check you are sending just title, price and thumbnail.");
+});
+%}
+
+### Test status code 200 on PUT api/products/ - Updating existent product with id 3
+PUT http://localhost:8080/api/products/3
+Content-Type: application/json
+
+{
+  "title": "Iphone 11 Pro Max",
+  "price": 2100,
+  "thumbnail": "www.example.com"
+}
+
+> {%
+client.test("Request status is 200", function() {
+  client.assert(response.status === 200, `The Status Code expected is 200 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking the product was updated", () => {
+  client.assert(response.body.product.title === 'Iphone 11 Pro Max', `The title is not Iphone 11 Pro Max, but ${response.body.product.title}`);
+  client.assert(response.body.product.price === 2100, `The price for Iphone 11 Pro Max found is of ${response.body.product.price}`);
+  client.assert(response.body.product.thumbnail === 'www.example.com', `The URL found was of ${response.body.product.thumbnail}`);
+});
+%}
+
+### Test status code 400 on PUT api/products/ - Wrong body on update
+PUT http://localhost:8080/api/products/3
+Content-Type: application/json
+
+{
+  "title": "Iphone 11 Pro Max",
+  "price": 2100
+}
+
+> {%
+client.test("Request status is 400", function() {
+  client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The information sent is not correct, please check you are sending just title, price and thumbnail.");
+});
+%}
+
+### Test status code 400 on PUT api/products/ - Incorrect format ID but correct body
+PUT http://localhost:8080/api/products/asd
+Content-Type: application/json
+
+{
+  "title": "Iphone 11 Pro Max",
+  "price": 2100,
+  "thumbnail": "www.example.com"
+}
+
+> {%
+client.test("Request status is 400", function() {
+  client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The ID is not a number, bad request.");
+});
+%}
+
+### Test status code 500 on PUT api/products/ - There is no product with the ID provided
+PUT http://localhost:8080/api/products/1123
+Content-Type: application/json
+
+{
+  "title": "Iphone 12 Pro Max",
+  "price": 1900,
+  "thumbnail": "www.example.com"
+}
+
+> {%
+client.test("Request status is 500", function() {
+  client.assert(response.status === 500, `The Status Code expected is 500 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The product with Id: 1123 does not exist in the container.");
+});
+%}
+
+### Test status code 200 on DELETE api/products/ - Deleting product
+DELETE http://localhost:8080/api/products/7
+
+> {%
+client.test("Request status is 200", function() {
+  client.assert(response.status === 200, `The Status Code expected is 200 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Request status is 200", function() {
+  client.assert(response.body.productDeleted.id === 7, `The product deleted was incorrect, please check the id.`);
+});
+%}
+
+### Test status code 400 on DELETE api/products/ - Sending an incorrect format ID
+DELETE http://localhost:8080/api/products/asd
+
+> {%
+client.test("Request status is 400", function() {
+  client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The ID is not a number, bad request.");
+});
+%}
+
+### Test status code 500 on DELETE api/products/ - Deleting an inexistent product
+DELETE http://localhost:8080/api/products/1238
+
+> {%
+client.test("Request status is 500", function() {
+  client.assert(response.status === 500, `The Status Code expected is 500 but the Status Code retrieved is ${response.status}`);
+});
+
+client.test("Checking Error message is the correct one", () => {
+   client.assert(response.body.error === "The product with Id: 1238 does not exist in the container.");
+});
+%}
