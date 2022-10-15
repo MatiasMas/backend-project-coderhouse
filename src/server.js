@@ -22,7 +22,7 @@ dotenv.config();
 
 //App middlewares but setting up handlebars
 app.set("views", "./src/views");
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
 //Routers setup
 app.use('/api/products', productsRouter);
