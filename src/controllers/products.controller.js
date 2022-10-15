@@ -7,7 +7,7 @@ export const getAllProducts = async (req, res) => {
         const allProducts = await productsContainer.getAll();
 
         if (allProducts) {
-            res.status(200).json({products: allProducts});
+            res.status(200).render("main", {products: allProducts});
         }
     } catch (err) {
         res.status(500).json({error: err});
@@ -48,7 +48,7 @@ export const createProduct = async (req, res) => {
             const newProduct = await productsContainer.save(product);
 
             if (newProduct) {
-                res.status(201).json({product: newProduct});
+                res.status(201);
             }
         } else {
             res.status(400).json({error: "The information sent is not correct, please check you are sending just title, price and thumbnail."});
