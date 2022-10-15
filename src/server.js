@@ -22,16 +22,7 @@ dotenv.config();
 
 //App middlewares but setting up handlebars
 app.set("views", "./src/views");
-app.set("view engine", "hbs");
-
-app.engine(
-    "hbs",
-    engine({
-        extname: ".hbs",
-        defaultLayout: "index.hbs",
-        layoutsDir: __dirname + "/views/layouts",
-        partialsDir: __dirname + "/views/partials"
-    }));
+app.set("view engine", "ejs");
 
 //Routers setup
 app.use('/api/products', productsRouter);

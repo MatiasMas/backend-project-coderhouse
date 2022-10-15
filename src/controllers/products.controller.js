@@ -7,7 +7,7 @@ export const getAllProducts = async (req, res) => {
         const allProducts = await productsContainer.getAll();
 
         if (allProducts) {
-            res.status(200).render("main", {products: allProducts});
+            res.status(200).render("pages/index", {products: allProducts});
         }
     } catch (err) {
         res.status(500).json({error: err});
