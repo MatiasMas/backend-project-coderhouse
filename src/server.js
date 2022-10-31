@@ -4,40 +4,35 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import dotenv from 'dotenv';
 import productsRouter from './routers/products.router.js';
-import {engine} from 'express-handlebars';
+import cors from "cors";
+import {createIOServer} from "./websockets/server.setup.js";
+import {MessagesSocket} from "./websockets/messages.socket.js";
 
 //Creating server
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 const server = http.createServer(app);
+const io = createIOServer(server);
+const messagesSocket = new MessagesSocket(io);
+
+/////////////////////////
+messagesSocket.establishConnectionWithClientAndSendInformation();
+/////////////////////////
 
 //App middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static("./src/public"));
 
 //Linking .env file
 dotenv.config();
-
-//App middlewares but setting up handlebars
-app.set("views", "./src/views");
-app.set("view engine", "hbs");
-
-app.engine(
-    "hbs",
-    engine({
-        extname: ".hbs",
-        defaultLayout: "index.hbs",
-        layoutsDir: __dirname + "/views/layouts",
-        partialsDir: __dirname + "/views/partials"
-    }));
 
 //Routers setup
 app.use('/api/products', productsRouter);
 
 //Server port setup
-const PORT = 8080;
+const PORT = process.env.SERVER_PORT;
 server.listen(PORT, () => {
     console.log(`Server has initiated on port http://localhost:${PORT}`);
 });

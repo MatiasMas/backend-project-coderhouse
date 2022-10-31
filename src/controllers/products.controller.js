@@ -1,13 +1,17 @@
-import {ProductsContainer} from "../containers/ProductsContainer.js";
+import {ProductsContainer} from "../services/ProductsContainer.js";
+import {isProductBodyValid, structureProduct} from "../utils/utils.js";
+import dotenv from "dotenv";
 
-const productsContainer = new ProductsContainer("src/products.txt");
+dotenv.config();
+
+const productsContainer = new ProductsContainer(process.env.FILENAME_PRODUCTS);
 
 export const getAllProducts = async (req, res) => {
     try {
         const allProducts = await productsContainer.getAll();
 
         if (allProducts) {
-            res.status(200).render("main", {products: allProducts});
+            res.status(200).json({products: allProducts});
         }
     } catch (err) {
         res.status(500).json({error: err});
@@ -38,20 +42,16 @@ export const createProduct = async (req, res) => {
     try {
         const {body} = req;
 
-        if (body.title && body.price && body.thumbnail) {
-            const product = {
-                title: body.title,
-                price: Number(body.price),
-                thumbnail: body.thumbnail
-            };
+        if (isProductBodyValid(body)) {
+            const product = structureProduct(body);
 
             const newProduct = await productsContainer.save(product);
 
             if (newProduct) {
-                res.status(201);
+                res.status(201).json({product: newProduct});
             }
         } else {
-            res.status(400).json({error: "The information sent is not correct, please check you are sending just title, price and thumbnail."});
+            res.status(400).json({error: "The information sent is not correct, please check you are sending the right information."});
         }
     } catch (err) {
         res.status(500).json({error: err});
@@ -63,12 +63,8 @@ export const updateProductById = async (req, res) => {
         const {id} = req.params;
         const {body} = req;
 
-        if (body.title && body.price && body.thumbnail) {
-            const product = {
-                title: body.title,
-                price: Number(body.price),
-                thumbnail: body.thumbnail
-            };
+        if (isProductBodyValid(body)) {
+            const product = structureProduct(body);
 
             if (!isNaN(id)) {
                 const updatedProduct = await productsContainer.updateProductById(Number(id), product);
@@ -80,7 +76,7 @@ export const updateProductById = async (req, res) => {
                 res.status(400).json({error: "The ID is not a number, bad request."});
             }
         } else {
-            res.status(400).json({error: "The information sent is not correct, please check you are sending just title, price and thumbnail."});
+            res.status(400).json({error: "The information sent is not correct, please check you are sending the right information."});
         }
     } catch (err) {
         res.status(500).json({error: err.message});

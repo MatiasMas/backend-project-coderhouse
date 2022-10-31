@@ -87,9 +87,17 @@ export class ProductsContainer {
         if (productToUpdate) {
             const index = this.products.indexOf(productToUpdate);
 
-            this.products[index].title = product.title;
+            this.products[index].name = product.name;
             this.products[index].price = product.price;
-            this.products[index].thumbnail = product.thumbnail;
+            this.products[index].category = product.category;
+            this.products[index].img = product.img;
+            this.products[index].colors = product.colors;
+            this.products[index].minimumStock = product.minimumStock;
+            this.products[index].rating = product.rating;
+            this.products[index].reviews = product.reviews;
+            this.products[index].stars = product.stars;
+            this.products[index].stock = product.stock;
+            this.products[index].description = product.description;
 
             await fs.promises.writeFile(this.fileName, JSON.stringify(this.products));
 
