@@ -26,6 +26,6 @@ export const structureMessage = (body) => {
     return {
         email: body.email,
         message: body.message,
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleString()
     };
 };

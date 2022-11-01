@@ -26,8 +26,11 @@ export class MessagesSocket {
             socket.on("getProducts", () => this.io.sockets.emit("savedProducts", productsOnSystem));
             socket.on("getMessages", () => this.io.sockets.emit("savedMessages", messagesOnSystem));
 
-            socket.on("addMessage", async (data) => this.createMessage(data));
-            socket.on("addProduct", async (data) => this.createProduct(data));
+            socket.on("addMessage", async (data) => {
+                await this.createMessage(data);
+                this.io.sockets.emit("savedMessages", await messagesContainer.getAll());
+            });
+            socket.on("addProduct", async (data) => await this.createProduct(data));
         });
     };
 
