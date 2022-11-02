@@ -1,5 +1,5 @@
 export const isProductBodyValid = (body) => {
-    return !!(body.name && body.price && body.category && body.img && body.colors && body.minimumStock && body.rating && body.reviews && body.stars && body.stock) && body.description;
+    return !!(body.name && body.price >= 0 && body.category && body.img && body.colors && body.minimumStock >= 0 && body.rating >= 0 && body.reviews >= 0 && body.stars >= 0 && body.stock >= 0 && body.description);
 };
 
 export const structureProduct = (body) => {

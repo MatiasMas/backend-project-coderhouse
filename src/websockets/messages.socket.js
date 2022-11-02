@@ -30,13 +30,17 @@ export class MessagesSocket {
                 await this.createMessage(data);
                 this.io.sockets.emit("savedMessages", await messagesContainer.getAll());
             });
-            socket.on("addProduct", async (data) => await this.createProduct(data));
+
+            socket.on("addProduct", async (data) => {
+                await this.createProduct(data);
+            });
         });
     };
 
     async createMessage(data) {
         try {
             if (isMessageBodyValid(data)) {
+                console.log("Body is valid");
                 const message = structureMessage(data);
                 await messagesContainer.save(message);
             }
