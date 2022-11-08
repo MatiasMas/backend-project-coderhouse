@@ -29,3 +29,11 @@ export const structureMessage = (body) => {
         date: new Date().toLocaleString()
     };
 };
+
+export const isCartBodyValid = () => {
+
+};
+
+export const structureCart = () => {
+
+};

@@ -67,7 +67,7 @@ export class ProductsContainer {
 
             return product;
         } else {
-            throw new Error("The product provided was not found in the container.")
+            throw new Error("The product provided was not found in the container.");
         }
     }
 

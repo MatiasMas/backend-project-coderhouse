@@ -4,6 +4,7 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import dotenv from 'dotenv';
 import productsRouter from './routers/products.router.js';
+import cartsRouter from "./routers/carts.router.js";
 import cors from "cors";
 import {createIOServer} from "./websockets/server.setup.js";
 import {MessagesSocket} from "./websockets/messages.socket.js";
@@ -30,9 +31,10 @@ dotenv.config();
 
 //Routers setup
 app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
 
 //Server port setup
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 server.listen(PORT, () => {
     console.log(`Server has initiated on port http://localhost:${PORT}`);
 });
