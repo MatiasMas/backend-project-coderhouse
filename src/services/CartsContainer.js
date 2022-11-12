@@ -40,25 +40,6 @@ export class CartsContainer {
 
     }
 
-    async deleteProductInCart(idCart, idProduct) {
-        const cart = this.getById(idCart);
-
-        if (cart) {
-            const cartIndex = this.carts.indexOf(cart);
-            const product = this.carts[cartIndex].products.find(product => product.id === idProduct);
-            const productIndex = this.carts[cartIndex].products.indexOf(product);
-            this.carts[cartIndex].products.splice(productIndex, 1);
-
-            try {
-                await fs.promises.writeFile(this.fileName, JSON.stringify(this.carts));
-
-                return await this.getById(idCart);
-            } catch (err) {
-                throw new Error(err);
-            }
-        }
-    }
-
     async getAll() {
         try {
             let cartsPromise = await fs.promises.readFile(this.fileName, "utf-8");
@@ -92,11 +73,32 @@ export class CartsContainer {
     }
 
     async saveNewProductInCart(idCart, product) {
-        const cart = this.getById(idCart);
+        await this.getAll();
+        const cart = await this.getById(idCart);
 
         if (cart) {
             const cartIndex = this.carts.indexOf(cart);
             this.carts[cartIndex].products.push(product);
+
+            try {
+                await fs.promises.writeFile(this.fileName, JSON.stringify(this.carts));
+
+                return await this.getById(idCart);
+            } catch (err) {
+                throw new Error(err);
+            }
+        }
+    }
+
+    async deleteProductInCart(idCart, idProduct) {
+        await this.getAll();
+        const cart = await this.getById(idCart);
+
+        if (cart) {
+            const cartIndex = this.carts.indexOf(cart);
+            const product = this.carts[cartIndex].products.find(product => product.id === idProduct);
+            const productIndex = this.carts[cartIndex].products.indexOf(product);
+            this.carts[cartIndex].products.splice(productIndex, 1);
 
             try {
                 await fs.promises.writeFile(this.fileName, JSON.stringify(this.carts));
@@ -117,5 +119,17 @@ export class CartsContainer {
         }
 
         return cart;
+    }
+
+    async isProductInCart(cart, idProduct){
+        await this.getAll();
+
+        for (const product of cart.products) {
+            if (product.id === idProduct){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

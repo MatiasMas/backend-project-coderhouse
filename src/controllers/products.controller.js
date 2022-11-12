@@ -14,7 +14,7 @@ export const getAllProducts = async (req, res) => {
             res.status(200).json({products: allProducts});
         }
     } catch (err) {
-        res.status(500).json({error: err});
+        res.status(500).json({error: err.message});
     }
 };
 
@@ -34,7 +34,7 @@ export const getProductById = async (req, res) => {
             res.status(400).json({error: "The ID is not a number, bad request."});
         }
     } catch (err) {
-        res.status(500).json({error: err});
+        res.status(500).json({error: err.message});
     }
 };
 
@@ -54,7 +54,7 @@ export const createProduct = async (req, res) => {
             res.status(400).json({error: "The information sent is not correct, please check you are sending the right information."});
         }
     } catch (err) {
-        res.status(500).json({error: err});
+        res.status(500).json({error: err.message});
     }
 };
 

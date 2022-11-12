@@ -30,10 +30,37 @@ export const structureMessage = (body) => {
     };
 };
 
-export const isCartBodyValid = () => {
+export const isCartBodyValid = (body) => {
+    if (!body.products) return false;
+    if (body.products.length === 0) return true;
 
+    body.products.map(productId => {
+        if (isNaN(productId)) {
+            return false;
+        }
+    });
+
+    return true;
 };
 
-export const structureCart = () => {
+export const structureCart = async (body, productsContainer) => {
+    const productsInCart = [];
 
+    try {
+        for (const product of body.products) {
+            let productFound = await productsContainer.getById(product);
+
+            if (productFound) {
+                productsInCart.push(productFound);
+            }
+        }
+
+    } catch (err) {
+        throw new Error(err);
+    }
+
+    return {
+        timestamp: new Date().toLocaleString(),
+        products: productsInCart
+    };
 };
