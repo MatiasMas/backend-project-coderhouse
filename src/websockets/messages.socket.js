@@ -1,11 +1,11 @@
-import {ProductsContainer} from "../services/ProductsContainer.js";
 import dotenv from "dotenv";
-import {MessagesContainer} from "../services/MessagesContainer.js";
 import {isMessageBodyValid, isProductBodyValid, structureMessage, structureProduct} from "../utils/utils.js";
+import {MessagesContainerSQLite3} from "../services/MessagesContainerSQLite3.js";
+import {ProductsContainerMySQL} from "../services/ProductsContainerMySQL.js";
 
 dotenv.config();
-const messagesContainer = new MessagesContainer(process.env.FILENAME_MESSAGES);
-const productsContainer = new ProductsContainer(process.env.FILENAME_PRODUCTS);
+const messagesContainer = new MessagesContainerSQLite3();
+const productsContainer = new ProductsContainerMySQL();
 
 export class MessagesSocket {
     io;
@@ -18,8 +18,8 @@ export class MessagesSocket {
         this.io.on("connection", async (socket) => {
             console.log("User connected...");
 
-            const productsContainer = new ProductsContainer(process.env.FILENAME_PRODUCTS);
-            const messagesContainer = new MessagesContainer(process.env.FILENAME_MESSAGES);
+            const productsContainer = new ProductsContainerMySQL();
+            const messagesContainer = new MessagesContainerSQLite3();
             const productsOnSystem = await productsContainer.getAll();
             const messagesOnSystem = await messagesContainer.getAll();
 
@@ -40,7 +40,6 @@ export class MessagesSocket {
     async createMessage(data) {
         try {
             if (isMessageBodyValid(data)) {
-                console.log("Body is valid");
                 const message = structureMessage(data);
                 await messagesContainer.save(message);
             }

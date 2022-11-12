@@ -1,10 +1,10 @@
-import {ProductsContainer} from "../services/ProductsContainer.js";
 import {isProductBodyValid, structureProduct} from "../utils/utils.js";
 import dotenv from "dotenv";
+import {ProductsContainerMySQL} from "../services/ProductsContainerMySQL.js";
 
 dotenv.config();
 
-const productsContainer = new ProductsContainer(process.env.FILENAME_PRODUCTS);
+const productsContainer = new ProductsContainerMySQL();
 
 export const getAllProducts = async (req, res) => {
     try {

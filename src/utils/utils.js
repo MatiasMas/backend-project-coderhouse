@@ -8,7 +8,7 @@ export const structureProduct = (body) => {
         price: Number(body.price),
         category: body.category,
         img: body.img,
-        colors: [...body.colors],
+        colors: [...body.colors].toString(),
         minimumStock: body.minimumStock,
         rating: body.rating,
         reviews: body.reviews,
