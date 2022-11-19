@@ -1,14 +1,12 @@
 import fs from "fs";
+import {ProductsBaseDAO} from "./ProductsBase.DAO.js";
 
-export class ProductsContainer {
+export class ProductsContainerFileSystemDAO extends ProductsBaseDAO {
     fileName;
-    maxId;
-    products;
 
     constructor(fileName) {
+        super();
         this.fileName = fileName;
-        this.maxId = 0;
-        this.products = [];
     }
 
     async save(product) {

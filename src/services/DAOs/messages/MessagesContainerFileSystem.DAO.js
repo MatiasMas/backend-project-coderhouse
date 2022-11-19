@@ -1,14 +1,12 @@
 import fs from "fs";
+import {MessagesBaseDAO} from "./MessagesBase.DAO.js";
 
-export class MessagesContainer {
+export class MessagesContainerFileSystemDAO extends MessagesBaseDAO {
     fileName;
-    maxId;
-    messages;
 
     constructor(fileName) {
+        super();
         this.fileName = fileName;
-        this.maxId = 0;
-        this.messages = [];
     }
 
     async getAll() {

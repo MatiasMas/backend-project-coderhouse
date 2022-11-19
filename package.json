@@ -7,15 +7,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon --inspect src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js filesystem",
+    "mongo": "node src/server.js mongo",
+    "sqlite": "node src/server.js sqlite",
+    "firebase": "node src/server.js firebase"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^7.6.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "firebase-admin": "^11.3.0",
+    "knex": "^2.3.0",
+    "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",
     "socket.io": "^4.5.3"
   }

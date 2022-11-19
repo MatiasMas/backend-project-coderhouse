@@ -1,14 +1,9 @@
-import {ProductsContainer} from "../services/ProductsContainer.js";
 import {isProductBodyValid, structureProduct} from "../utils/utils.js";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const productsContainer = new ProductsContainer(process.env.FILENAME_PRODUCTS);
+import {productsDAO} from "../services/DAOs/factory.js";
 
 export const getAllProducts = async (req, res) => {
     try {
-        const allProducts = await productsContainer.getAll();
+        const allProducts = await productsDAO.getAll();
 
         if (allProducts) {
             res.status(200).json({products: allProducts});
@@ -23,12 +18,12 @@ export const getProductById = async (req, res) => {
         const {id} = req.params;
 
         if (!isNaN(id)) {
-            const productRetrieved = await productsContainer.getById(Number(id));
+            const productRetrieved = await productsDAO.getById(Number(id));
 
             if (productRetrieved) {
                 res.status(200).json({product: productRetrieved});
             } else {
-                res.status(404).json({error: "There is no product with that ID."});
+                res.status(404).json({error: "There is no products with that ID."});
             }
         } else {
             res.status(400).json({error: "The ID is not a number, bad request."});
@@ -45,7 +40,7 @@ export const createProduct = async (req, res) => {
         if (isProductBodyValid(body)) {
             const product = structureProduct(body);
 
-            const newProduct = await productsContainer.save(product);
+            const newProduct = await productsDAO.save(product);
 
             if (newProduct) {
                 res.status(201).json({product: newProduct});
@@ -67,7 +62,7 @@ export const updateProductById = async (req, res) => {
             const product = structureProduct(body);
 
             if (!isNaN(id)) {
-                const updatedProduct = await productsContainer.updateProductById(Number(id), product);
+                const updatedProduct = await productsDAO.updateProductById(Number(id), product);
 
                 if (updatedProduct) {
                     res.status(200).json({product: updatedProduct});
@@ -88,7 +83,7 @@ export const deleteProductById = async (req, res) => {
         const {id} = req.params;
 
         if (!isNaN(id)) {
-            const deletedProduct = await productsContainer.deleteById(Number(id));
+            const deletedProduct = await productsDAO.deleteById(Number(id));
 
             if (deletedProduct) {
                 res.status(200).json({productDeleted: deletedProduct});

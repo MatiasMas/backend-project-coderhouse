@@ -1,14 +1,12 @@
 import fs from "fs";
+import {CartsBaseDAO} from "./CartsBase.DAO.js";
 
-export class CartsContainer {
+export class CartsContainerFileSystemDAO extends CartsBaseDAO {
     fileName;
-    maxId;
-    carts;
 
     constructor(fileName) {
+        super();
         this.fileName = fileName;
-        this.maxId = 0;
-        this.carts = [];
     }
 
     async deleteAll() {
@@ -34,7 +32,7 @@ export class CartsContainer {
 
             return cart;
         } else {
-            throw new Error("The cart provided was not found in the container.");
+            throw new Error("The carts provided was not found in the container.");
         }
 
 
@@ -121,11 +119,11 @@ export class CartsContainer {
         return cart;
     }
 
-    async isProductInCart(cart, idProduct){
+    async isProductInCart(cart, idProduct) {
         await this.getAll();
 
         for (const product of cart.products) {
-            if (product.id === idProduct){
+            if (product.id === idProduct) {
                 return true;
             }
         }

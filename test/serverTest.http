@@ -34,8 +34,8 @@ client.test("Request status is 400", function() {
   client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
-   client.assert(response.body.error === "The ID is not a number, bad request.", "The error message is not the expected.");
+client.test("Checking Error messages is the correct one", () => {
+   client.assert(response.body.error === "The ID is not a number, bad request.", "The error messages is not the expected.");
 });
 %}
 
@@ -62,10 +62,10 @@ client.test("Request status is 201", function() {
   client.assert(response.status === 201, `The Status Code expected is 201 but the Status Code retrieved is ${response.status}`);
 });
 
-// client.test("Checking the product was created", () => {
-//   client.assert(response.body.product.title === 'Asus 2080', `The title is not Asus 2080, but ${response.body.product.title}`);
-//   client.assert(response.body.product.price === 900, `The price for Asus 2080 found is of ${response.body.product.price}`);
-//   client.assert(response.body.product.thumbnail === 'www.example.com', `The URL found was of ${response.body.product.thumbnail}`);
+// client.test("Checking the products was created", () => {
+//   client.assert(response.body.products.title === 'Asus 2080', `The title is not Asus 2080, but ${response.body.products.title}`);
+//   client.assert(response.body.products.price === 900, `The price for Asus 2080 found is of ${response.body.products.price}`);
+//   client.assert(response.body.products.thumbnail === 'www.example.com', `The URL found was of ${response.body.products.thumbnail}`);
 // });
 %}
 
@@ -88,7 +88,7 @@ client.test("Request status is 400", function() {
   client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
+client.test("Checking Error messages is the correct one", () => {
    client.assert(response.body.error === "The information sent is not correct, please check you are sending the right information.");
 });
 %}
@@ -116,10 +116,10 @@ client.test("Request status is 200", function() {
   client.assert(response.status === 200, `The Status Code expected is 200 but the Status Code retrieved is ${response.status}`);
 });
 
-// client.test("Checking the product was updated", () => {
-//   client.assert(response.body.product.title === 'Iphone 11 Pro Max', `The title is not Iphone 11 Pro Max, but ${response.body.product.title}`);
-//   client.assert(response.body.product.price === 2100, `The price for Iphone 11 Pro Max found is of ${response.body.product.price}`);
-//   client.assert(response.body.product.thumbnail === 'www.example.com', `The URL found was of ${response.body.product.thumbnail}`);
+// client.test("Checking the products was updated", () => {
+//   client.assert(response.body.products.title === 'Iphone 11 Pro Max', `The title is not Iphone 11 Pro Max, but ${response.body.products.title}`);
+//   client.assert(response.body.products.price === 2100, `The price for Iphone 11 Pro Max found is of ${response.body.products.price}`);
+//   client.assert(response.body.products.thumbnail === 'www.example.com', `The URL found was of ${response.body.products.thumbnail}`);
 // });
 %}
 
@@ -137,7 +137,7 @@ client.test("Request status is 400", function() {
   client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
+client.test("Checking Error messages is the correct one", () => {
    client.assert(response.body.error === "The information sent is not correct, please check you are sending the right information.");
 });
 %}
@@ -157,7 +157,7 @@ client.test("Request status is 400", function() {
   client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
+client.test("Checking Error messages is the correct one", () => {
    client.assert(response.body.error === "The ID is not a number, bad request.");
 });
 %}
@@ -177,8 +177,8 @@ client.test("Request status is 500", function() {
   client.assert(response.status === 500, `The Status Code expected is 500 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
-   client.assert(response.body.error === "The product with Id: 1123 does not exist in the container.");
+client.test("Checking Error messages is the correct one", () => {
+   client.assert(response.body.error === "The products with Id: 1123 does not exist in the container.");
 });
 %}
 
@@ -203,7 +203,7 @@ client.test("Request status is 400", function() {
   client.assert(response.status === 400, `The Status Code expected is 400 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
+client.test("Checking Error messages is the correct one", () => {
    client.assert(response.body.error === "The ID is not a number, bad request.");
 });
 %}
@@ -216,7 +216,7 @@ client.test("Request status is 500", function() {
   client.assert(response.status === 500, `The Status Code expected is 500 but the Status Code retrieved is ${response.status}`);
 });
 
-client.test("Checking Error message is the correct one", () => {
-   client.assert(response.body.error === "The product with Id: 1238 does not exist in the container.");
+client.test("Checking Error messages is the correct one", () => {
+   client.assert(response.body.error === "The products with Id: 1238 does not exist in the container.");
 });
 %}
