@@ -14,4 +14,8 @@ export class MessagesBaseDAO {
     save(message) {
         throw new Error("Feature not implemented.");
     }
+
+    getNormalized(){
+        throw new Error("Feature not implemented.");
+    }
 }

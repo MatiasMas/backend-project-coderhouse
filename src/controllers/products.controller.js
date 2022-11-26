@@ -1,5 +1,6 @@
 import {isProductBodyValid, structureProduct} from "../utils/utils.js";
 import {productsDAO} from "../services/DAOs/factory.js";
+import {generateProduct} from "../utils/FakerGenerator.js";
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -90,6 +91,24 @@ export const deleteProductById = async (req, res) => {
             }
         } else {
             res.status(400).json({error: "The ID is not a number, bad request."});
+        }
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+};
+
+export const randomProducts = (req, res) => {
+    try {
+        let allProducts = [];
+
+        for (let i = 1; i < 6; i++) {
+            let product = generateProduct();
+            product.id = i;
+            allProducts.push(product);
+        }
+
+        if (allProducts) {
+            res.status(200).json({products: allProducts});
         }
     } catch (err) {
         res.status(500).json({error: err.message});

@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
+import {AuthorSchema} from "./authors.model.js";
 
 const MessagesSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true
-    },
+    author: AuthorSchema,
     message: {
         type: String,
         required: true

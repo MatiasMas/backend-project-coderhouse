@@ -1,5 +1,7 @@
 import {MessagesBaseDAO} from "./MessagesBase.DAO.js";
 import {getFirestore} from "firebase-admin/firestore";
+import {normalize} from "normalizr";
+import {chatSchema} from "../../../normalizr.schemas/chat.schema.js";
 
 export class MessagesContainerFirebaseDAO extends MessagesBaseDAO {
     db;
@@ -43,5 +45,11 @@ export class MessagesContainerFirebaseDAO extends MessagesBaseDAO {
         } catch (err) {
             throw new Error(err.message);
         }
+    }
+
+    async getNormalized(){
+        const messages = await this.getAll();
+
+        return normalize({id: "chatHistory", messages: messages}, chatSchema)
     }
 }

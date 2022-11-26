@@ -19,12 +19,19 @@ export const structureProduct = (body) => {
 };
 
 export const isMessageBodyValid = (body) => {
-    return !!(body.email && body.message);
+    return !!(body.author && body.message);
 };
 
 export const structureMessage = (body) => {
     return {
-        email: body.email,
+        author: {
+            email: body.author.email,
+            firstname: body.author.firstname,
+            lastname: body.author.lastname,
+            age: body.author.age,
+            alias: body.author.alias,
+            avatar: body.author.avatar
+        },
         message: body.message,
         date: new Date().toLocaleString()
     };

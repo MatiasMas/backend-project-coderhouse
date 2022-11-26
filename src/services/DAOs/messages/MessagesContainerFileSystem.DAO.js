@@ -1,5 +1,7 @@
 import fs from "fs";
 import {MessagesBaseDAO} from "./MessagesBase.DAO.js";
+import {normalize} from "normalizr";
+import {chatSchema} from "../../../normalizr.schemas/chat.schema.js";
 
 export class MessagesContainerFileSystemDAO extends MessagesBaseDAO {
     fileName;
@@ -39,5 +41,11 @@ export class MessagesContainerFileSystemDAO extends MessagesBaseDAO {
         } catch (err) {
             throw new Error(err);
         }
+    }
+
+    async getNormalized(){
+        const messages = await this.getAll();
+
+        return normalize({id: "chatHistory", messages: messages}, chatSchema)
     }
 }

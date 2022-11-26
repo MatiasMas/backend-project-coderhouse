@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "better-sqlite3": "^7.6.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -24,6 +25,7 @@
     "knex": "^2.3.0",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",
+    "normalizr": "^3.6.2",
     "socket.io": "^4.5.3"
   }
 }
