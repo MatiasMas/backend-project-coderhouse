@@ -231,6 +231,57 @@ Response:
 ```
 </details>
 
+- **GET api/products/faker**
+  - Description: Return 5 random products generated with the faker library.
+
+<details>
+<summary>Example</summary>
+
+Response:
+```
+{
+  "products": [
+    {
+      "name": "Resident Evil 2",
+      "price": 850,
+      "category": "games",
+      "img": "https://uvejuegos.com/img/caratulas/57232/resident-evil-2-remake-EU-PC.jpg",
+      "colors": [
+        "blue",
+        "red",
+        "green"
+      ],
+      "minimumStock": 1,
+      "rating": 4.5,
+      "reviews": 144,
+      "stars": 5,
+      "stock": 10,
+      "description": "Resident Evil 2a​ —cuyo título original es Biohazard 2 (バイオハザード2 Baiohazādo Tsū?, «Peligro biológico 2»)—b​ es un videojuego japonés del género horror de supervivencia, desarrollado por Capcom y lanzado para PlayStation en 1998. Se trata de la segunda entrega en la serie de videojuegos Resident Evil.  La trama tiene lugar dos meses después de los acontecimientos del primer juego. Transcurre en Raccoon City, una ciudad estadounidense cuya población en su mayoría ha sido transformada en zombi por el virus-T, un arma biológica desarrollada por la compañía Umbrella. Mientras huyen de la ciudad, el oficial Leon S. Kennedy y la estudiante universitaria Claire Redfield se conocen y unen a otros supervivientes, y descubren que Umbrella trata de apoderarse de una muestra del nuevo virus para continuar con sus experimentos biológicos en seres humanos.",
+      "id": 1
+    },
+    {
+      "name": "Battlefield 1",
+      "price": 500,
+      "category": "games",
+      "img": "https://uvejuegos.com/img/caratulas/56708/BF1-PC-B.jpg",
+      "colors": [
+        "blue",
+        "red",
+        "green"
+      ],
+      "minimumStock": 1,
+      "rating": 3.9,
+      "reviews": 50,
+      "stars": 4,
+      "stock": 25,
+      "description": "Battlefield 1 es un videojuego de disparos y acción bélica en primera persona. El título fue desarrollado por DICE y distribuido mundialmente por Electronic Arts para PlayStation 4, Xbox One y Microsoft Windows. Es el décimo quinto juego de la serie Battlefield y el primer título de la serie que se ambienta en la Primera Guerra Mundial por Electronic Arts desde Wings of Glory en 1994. El juego fue confirmado en mayo de 2016 por Electronic Arts.1​ Su lanzamiento ocurrió el 21 de octubre de 2016.",
+      "id": 2
+    }
+  ]
+}
+```
+</details>
+
 ---
 
 ### Cart Endpoints.
