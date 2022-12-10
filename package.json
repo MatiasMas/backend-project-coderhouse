@@ -17,10 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@google-cloud/connect-firestore": "^2.0.2",
     "better-sqlite3": "^7.6.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "firebase-admin": "^11.3.0",
     "knex": "^2.3.0",
     "mongoose": "^6.7.2",

@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import serviceAccount from "../../../databases/backend-project-coderhouse-firebase-adminsdk-fmns0-4ea715c8db.json" assert {type: "json"};
+import serviceAccount from "../../../databases/backend-project-coderhouse-firebase-adminsdk-fmns0-f3015c9a4f.json" assert {type: "json"};
 import {getFirestore} from "firebase-admin/firestore";
 import {ProductsBaseDAO} from "./ProductsBase.DAO.js";
 

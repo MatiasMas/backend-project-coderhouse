@@ -1,13 +1,14 @@
 import express from "express";
 import * as productsController from "../controllers/products.controller.js";
+import {isLoggedIn} from "../middlewares/logged.middleware.js";
 
 const productsRouter = express.Router();
 
-productsRouter.get("/", productsController.getAllProducts);
-productsRouter.get("/faker", productsController.randomProducts);
-productsRouter.get("/:id", productsController.getProductById);
-productsRouter.post("/", productsController.createProduct);
-productsRouter.put("/:id", productsController.updateProductById);
-productsRouter.delete("/:id", productsController.deleteProductById);
+productsRouter.get("/", isLoggedIn, productsController.getAllProducts);
+productsRouter.get("/faker", isLoggedIn, productsController.randomProducts);
+productsRouter.get("/:id", isLoggedIn, productsController.getProductById);
+productsRouter.post("/", isLoggedIn, productsController.createProduct);
+productsRouter.put("/:id", isLoggedIn, productsController.updateProductById);
+productsRouter.delete("/:id", isLoggedIn, productsController.deleteProductById);
 
 export default productsRouter;
