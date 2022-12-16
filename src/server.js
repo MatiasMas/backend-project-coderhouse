@@ -5,6 +5,7 @@ import {fileURLToPath} from 'url';
 import dotenv from 'dotenv';
 import productsRouter from './routers/products.router.js';
 import cartsRouter from "./routers/carts.router.js";
+import loginRouter from "./routers/login.router.js";
 import cors from "cors";
 import {createIOServer} from "./websockets/server.setup.js";
 import {MessagesSocket} from "./websockets/messages.socket.js";
@@ -12,7 +13,6 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import {FirestoreStore} from "@google-cloud/connect-firestore";
 import {getFirestore} from "firebase-admin/firestore";
-import loginRouter from "./routers/login.router.js";
 
 //Creating server
 const __filename = fileURLToPath(import.meta.url);

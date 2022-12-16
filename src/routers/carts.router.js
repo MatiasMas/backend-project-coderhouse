@@ -1,6 +1,6 @@
 import express from "express";
 import * as cartsController from "../controllers/carts.controller.js";
-import {isLoggedIn} from "../middlewares/logged.middleware";
+import {isLoggedIn} from "../middlewares/logged.middleware.js";
 
 const cartsRouter = express.Router();
 
