@@ -1,17 +1,19 @@
-export const loginUser = (req, res) => {
-    const {username} = req.query;
+import {currentPassport} from "../server.js";
 
+export const loginUser = (req, res, next) => {
+    currentPassport.authenticate("local", (err, user) => {
+        if (err) throw err;
 
-    if (req.session.username) {
-        res.status(200).json(true);
-    } else {
-        if (username) {
-            req.session.username = username;
-            res.status(200).json(true);
-        } else {
-            res.send(401).json(false);
-        }
-    }
+        if (!user) res.status(404).send("The user does not exist.");
+
+        req.logIn(user, (err) => {
+            if (err) throw err;
+
+            res.status(200).send("Logged in successfully.");
+            console.log(req.user);
+        });
+
+    })(req, res, next);
 };
 
 export const logoutUser = (req, res) => {

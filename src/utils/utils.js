@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 export const isProductBodyValid = (body) => {
     return !!(body.name && body.price >= 0 && body.category && body.img && body.colors && body.minimumStock >= 0 && body.rating >= 0 && body.reviews >= 0 && body.stars >= 0 && body.stock >= 0 && body.description);
 };
@@ -70,4 +72,23 @@ export const structureCart = async (body, productsContainer) => {
         timestamp: new Date().toLocaleString(),
         products: productsInCart
     };
+};
+
+export const structureUser = (username, password) => {
+    return {
+        username: username,
+        password: hashPassword(password)
+    };
+};
+
+export const isUserValid = (username, password) => {
+    return !!(username && password);
+};
+
+export const isPasswordValid = (user, password) => {
+    return bcrypt.compareSync(password, user.password);
+};
+
+export const hashPassword = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
