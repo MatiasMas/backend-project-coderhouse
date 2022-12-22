@@ -17,6 +17,7 @@ import MongoStore from "connect-mongo";
 import passport from "passport";
 import {setPassport} from "./passport/passport.settings.js";
 import registerRouter from "./routers/register.router.js";
+import utilsRouter from "./routers/utils.router.js";
 
 //Creating server
 const __filename = fileURLToPath(import.meta.url);
@@ -82,9 +83,10 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", loginRouter);
 app.use("/", registerRouter);
+app.use("/", utilsRouter);
 
 //Server port setup
-const PORT = process.env.PORT || 8080;
+const PORT = process.argv[3] || process.env.PORT;
 server.listen(PORT, () => {
     console.log(`Server has initiated on port http://localhost:${PORT}`);
 });
