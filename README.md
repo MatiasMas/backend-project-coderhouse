@@ -1,6 +1,20 @@
 ## Coderhouse Backend project.
 
-There are to main routes:
+**Steps to setup the proxy server with load balancer.**
+
+1. First, we need to start the server in port 8080 in Fork mode by using the "forever-fork-mongo" from the package.json file which is the same as:
+> forever -w start src/server.js 8080 mongo fork
+
+2. Second, we need to start the server in port 8081 in Cluster mode by using the "forever-cluster-mongo" from the package.json file which is the same as:
+> forever -w start src/server.js 8081 mongo cluster
+
+3. Third, start the nginx server by running the nginx.exe file on the repository, it is already configured to balance the traffic to 8080 and 8081.
+
+*With this, requests to /randoms go to 8081 balancing the load while the 8080 port will handle the rest.*
+
+---
+
+**There are two main api routes:**
 - api/products
 - api/carts
 

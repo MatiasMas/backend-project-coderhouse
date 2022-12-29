@@ -3,7 +3,7 @@ import {CartsContainerFirebaseDAO} from "./carts/CartsContainerFirebase.DAO.js";
 
 dotenv.config();
 
-const databaseSelected = process.argv[2];
+const databaseSelected = process.argv[3];
 
 let productsDAO = null;
 let cartsDAO = null;
@@ -11,7 +11,7 @@ let messagesDAO = null;
 
 switch (databaseSelected) {
     case "mongo":
-        const {ProductsContainerMongoDAO} = await import("./products/ProductsContainerMongo.DAO.js");
+        const {ProductsContainerMongoDAO} = await import(`./products/ProductsContainerMongo.DAO.js`);
         const {MessagesContainerMongoDAO} = await import("./messages/MessagesContainerMongo.DAO.js");
         const {CartsContainerMongoDAO} = await import("./carts/CartsContainerMongo.DAO.js");
 

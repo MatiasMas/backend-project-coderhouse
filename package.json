@@ -2,15 +2,23 @@
   "name": "backend-project-coderhouse",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "nodemon --inspect src/server.js",
-    "start": "node src/server.js filesystem 8080",
-    "mongo": "node src/server.js mongo 8080",
-    "sqlite": "node src/server.js sqlite 8080",
-    "firebase": "node src/server.js firebase 8080"
+    "node-filesystem": "node src/server.js 8080 filesystem",
+    "node-mongo": "node src/server.js 8080 mongo",
+    "node-sqlite": "node src/server.js 8080 sqlite",
+    "node-firebase": "node src/server.js 8080 firebase",
+    "nodemon-filesystem": "nodemon --inspect src/server.js 8080 filesystem",
+    "nodemon-mongo": "nodemon --inspect src/server.js 8080 mongo",
+    "nodemon-firebase": "nodemon --inspect src/server.js 8080 firebase",
+    "forever-cluster-mongo": "forever -w start src/server.js 8081 mongo cluster",
+    "forever-fork-mongo": "forever -w start src/server.js 8080 mongo fork",
+    "forever-stopall": "forever stopall",
+    "babel-conversion-for-pm2": "babel src/server.js -o src/babel/index.cjs",
+    "pm2-cluster-mongo": "pm2 start src/babel/index.cjs -i 4 -- 8080 mongo",
+    "pm2-fork-mongo": "pm2 start src/babel/index.cjs -- 8080 mongo",
+    "pm2-stopall": "pm2 stop \"all\""
   },
   "keywords": [],
   "author": "",
@@ -34,5 +42,9 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }

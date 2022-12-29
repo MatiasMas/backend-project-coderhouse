@@ -1,0 +1,8 @@
+2022/12/29 00:34:11 [error] 24724#21072: *1 CreateFile() "C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/12/29 00:57:52 [error] 9756#22960: *1 CreateFile() "C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/html/api/products" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /api/products HTTP/1.1", host: "localhost"
+2022/12/29 01:04:58 [emerg] 22012#22868: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59
+2022/12/29 01:05:07 [emerg] 19464#19964: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59
+2022/12/29 01:05:37 [emerg] 17016#7956: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59
+2022/12/29 01:05:47 [emerg] 19624#3088: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59
+2022/12/29 01:07:14 [emerg] 21364#21164: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59
+2022/12/29 01:07:48 [emerg] 27580#26620: duplicate location "/api/products" in C:\Users\User\Documents\WebstormProjects\backend-project-coderhouse\src\nginx/conf/nginx.conf:59

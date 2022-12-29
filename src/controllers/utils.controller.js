@@ -1,4 +1,6 @@
 import {fork} from "child_process";
+import * as os from "os";
+
 
 export const getRandomNumbers = (req, res) => {
     const {iterations} = req.query || 100000000;
@@ -20,8 +22,9 @@ export const getSystemInfo = (req, res) => {
         "OS": process.platform,
         "node-version": process.version,
         "memory-usage": process.memoryUsage(),
-        "execution-path": process.argv[0],
+        "execution-path": process.execPath,
         "process-id": process.pid,
-        "project-folder": process.cwd()
+        "project-folder": process.cwd(),
+        "os-subprocesses": os.cpus().length
     });
 };

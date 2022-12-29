@@ -18,21 +18,17 @@ import passport from "passport";
 import {setPassport} from "./passport/passport.settings.js";
 import registerRouter from "./routers/register.router.js";
 import utilsRouter from "./routers/utils.router.js";
+import cluster from "cluster";
+import os from "os";
 
 //Creating server
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 const app = express();
 const server = http.createServer(app);
-const io = createIOServer(server);
-const messagesSocket = new MessagesSocket(io);
 
 //Linking .env file
 dotenv.config();
-
-/////////////////////////
-messagesSocket.establishConnectionWithClientAndSendInformation();
-/////////////////////////
 
 //App middlewares
 app.use(
@@ -86,8 +82,29 @@ app.use("/", registerRouter);
 app.use("/", utilsRouter);
 
 //Server port setup
-const PORT = process.argv[3] || process.env.PORT;
-server.listen(PORT, () => {
-    console.log(`Server has initiated on port http://localhost:${PORT}`);
-});
-server.on("error", (err) => console.log(err));
+const PORT = process.argv[2] || process.env.PORT;
+const serverMode = process.argv[4] || process.env.SERVER_MODE;
+const subprocessesNumber = os.cpus().length;
+
+if (serverMode.toLowerCase() === "cluster" && cluster.isPrimary) {
+    for (let i = 0; i < subprocessesNumber; i++) {
+        cluster.fork();
+    }
+
+    cluster.on("exit", (worker, error) => {
+        console.log(`The subprocess with PID: ${worker.process.pid} has stopped working.`);
+        cluster.fork();
+    });
+} else {
+    const io = createIOServer(server);
+    const messagesSocket = new MessagesSocket(io);
+
+    /////////////////////////
+    messagesSocket.establishConnectionWithClientAndSendInformation();
+    /////////////////////////
+
+    server.listen(PORT, () => {
+        console.log(`Server has initiated on port http://localhost:${PORT}, PID: ${process.pid}.`);
+    });
+    server.on("error", (err) => console.log(err));
+}
